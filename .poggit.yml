@@ -6,5 +6,5 @@ projects:
   BravoClan:
     path: ""
     lint:
-      phpstab: false
+      phpstan: false
 ...
