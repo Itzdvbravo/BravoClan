@@ -18,12 +18,11 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - Level System
 The clan level system is quite basic but interestic and kindof different than others _(Currently the amount of xp needed to level up isn't set however The amount of xp you lose, you gain can be configured in config.yml)_.
 The first level is 100 xp (Leader can invite 2 members only), after the clan has more than 100 xp, they will level up and reach level 2.
-Now, every levelup will open one more space for members for the clan. After you level up, the xp needed to levelup + 250 xp will be needed for next level up i.e, to get level 3 you need to get 350xp (100 + 250).
-
+Now, every levelup will open one more space for members for the clan. After you level up, the xp needed to levelup + 250 xp will be needed for next level up i.e, to get level 3 you need to get 350xp (100 + 250).  
 If you die you lose xp.
 
-- Rank System
-There are only two ranks in the clan, leader and members.
+- Rank System  
+There are only two ranks in the clan, leader and members.  
 
 ### Commands
 - [x] /clan info
