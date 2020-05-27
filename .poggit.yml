@@ -5,4 +5,6 @@ branches:
 projects:
   BravoClan:
     path: ""
+    lint:
+      phpstab: false
 ...
