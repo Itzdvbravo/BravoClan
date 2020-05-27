@@ -5,6 +5,7 @@ branches:
 projects:
   BravoClan:
     path: ""
+    #Credit to DevRqzor
     lint:
       phpstan: false
 ...
