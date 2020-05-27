@@ -15,21 +15,43 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 
 ### Clan System
 
-The clan level system is quite basic but interestic and kindof different than others (Currently the amount of xp needed to level up isn't set however The amount of xp you lose, you gain can be configured in config.yml).
+The clan level system is quite basic but interestic and kindof different than others _(Currently the amount of xp needed to level up isn't set however The amount of xp you lose, you gain can be configured in config.yml)_.
 The first level is 100 xp (Leader can invite 2 members only), after the clan has more than 100 xp, they will level up and reach level 2.
 Now, every levelup will open one more space for members for the clan. After you level up, the xp needed to levelup + 250 xp will be needed for next level up i.e, to get level 3 you need to get 350xp (100 + 250).
 
 If you die you lose xp.
 
 ### Commands
-- /clan info
-- /clan create
-- /clan invite
-- /clan chat
-- /clan members
-- /clan kick
-- /clan delete
-- /clan leave
-- /clan top
+- [x] /clan info
+- [x] /clan create
+- [x] /clan invite
+- [x] /clan chat
+- [x] /clan members
+- [x] /clan kick
+- [x] /clan delete
+- [x] /clan leave
+- [x] /clan accept
+- [x] /clan top
 
 - Info:<br>
+
+Get your or others clan info, don't provide a clan name if you want to get info about your clan.
+**Usuage** - /clan info <clan>.
+  ***NOTE:** Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.
+
+- Create:<br>
+Create a clan if you aren't already in a clan.
+**Usage** - /clan create <clan name>.
+***NOTE:*** Clan name can only contain letters
+
+- Invite
+Invite members to your clan
+**Usage** - /clan invite <member>.
+***NOTE:*** Only for clan leaders, won't be able to invite if the clan member limit has reached.
+
+- Chat
+Join your clan chat.
+**Usage** - /clan chat
+***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan
+
+- Members
