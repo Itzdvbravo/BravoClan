@@ -46,4 +46,19 @@ class Main extends PluginBase{
             $cfg->save();
         }
     }
+    public function scorehudAddon($member)
+    {
+        if (self::$file->isInClan($member)) {
+            strtolower($member);
+            $dtb = Main::$db->prepare("SELECT * FROM members WHERE member =:member;");
+            $dtb->bindValue(":member", $member);
+            $end = $dtb->execute();
+            $array = $end->fetchArray(SQLITE3_ASSOC);
+            $clan = $array["clan"];
+            $dtb->close();
+            return "$clan";
+        } else {
+            return "No Clan";
+        }
+    }
 }
