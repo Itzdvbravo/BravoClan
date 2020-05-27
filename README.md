@@ -51,7 +51,7 @@ Invite members to your clan
 
 - Chat
 Join your clan chat.
-**Usage** - /clan chat
-***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan
+- **Usage** - /clan chat
+- ***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan
 
 - Members
