@@ -5,7 +5,6 @@ branches:
 projects:
   BravoClan:
     path: ""
-    icon: 1588520980287.jpg
     #Credit to DevRqzor
     lint:
       phpstan: false
