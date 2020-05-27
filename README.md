@@ -58,32 +58,32 @@ Join your clan chat.
 **Usage** - /clan chat  
 ***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan  
 
-- Members<br>  
+- **Members**<br>  
 Get member info of your or others clan.  
 **Usage** - /clan members <clan>  
 ***NOTE:*** Won't work if player doesn't provide a clan and isn't in a clan, will show if they're online/offline thier kill/deaths in the clan.  
 
-- Kick<br>  
+- **Kick<br>  
 Kick a member from a clan.  
 **Usage** - /clan kick  
 ***NOTE:*** Only for clan leaders  
 
-- Delete<br>  
+- **Delete<br>  
 Delete your clan.  
 **Usage** - /clan delete  
 ***NOTE:*** Only for clan leaders  
 
-- Leave<br>  
+- **Leave<br>  
 Leave your clan.  
 **Usage** - /clan leave  
 ***NOTE:*** Only works for members, works if you're in a clan.  
 
-- Accept<br>  
+- **Accept<br>  
 Accept an invitation from a clan.  
 **Usage** - /clan accept  
 ***NOTE:*** Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.  
 
-- Top<br>   
+- **Top<br>   
 Get top 10 clans
 **Usage** - /clan top
 
