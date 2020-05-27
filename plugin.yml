@@ -1,0 +1,11 @@
+name: BravoClan
+main: Itzdvbravo\BravoClan\Main
+
+version: 0.0.1
+api: 3.12.0
+
+author: Itzdvbravo
+
+commands:
+  clan:
+    description: Clan commands.
