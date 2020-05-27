@@ -39,19 +39,19 @@ Get your or others clan info, don't provide a clan name if you want to get info 
 **Usuage** - /clan info <clan>.
   ***NOTE:** Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.
 
-- Create:<br>
+- Create<br>  
 Create a clan if you aren't already in a clan.  
 **Usage** - /clan create <clan name>.  
 ***NOTE:*** Clan name can only contain letters  
 
-- Invite
+- Invite<br>  
 Invite members to your clan  
 **Usage** - /clan invite <member>.  
 ***NOTE:*** Only for clan leaders, won't be able to invite if the clan member limit has reached.  
 
-- Chat
+- Chat<br>  
 Join your clan chat.  
 **Usage** - /clan chat  
 ***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan
 
-- Members
+- Members<br>  
