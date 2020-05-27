@@ -87,7 +87,7 @@ Get top 10 clans
 **Usage** - /clan top
 
 ### Upcoming Projects
-- [ ] more configurable
+- [ ] More configurable
 - [ ] Scorehud compatible
 - [ ] Purechat compatible
-- [ ] More efficient member limit 
+- [ ] More efficient member limit system 
