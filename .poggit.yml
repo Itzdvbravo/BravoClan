@@ -5,7 +5,8 @@ branches:
 projects:
   BravoClan:
     path: ""
-    #Credit to DevRqzor
+    icon: "1588520980287.jpg"
+    #Credit to DevRqzor For phpstan thingy
     lint:
       phpstan: false
 ...
