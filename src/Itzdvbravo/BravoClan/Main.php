@@ -6,6 +6,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Plugin\PluginBase;
 use pocketmine\Server;
+use pocketmine\utils\Config;
 
 class Main extends PluginBase{
     public static $db;
@@ -20,6 +21,7 @@ class Main extends PluginBase{
         self::$file = new Database($this);
         self::$clan = new Clan($this);
         self::$cmd = new Commands($this);
+        $this->config();
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
     }
     public function onCommand(CommandSender $player, Command $cmd, string $label, array $args): bool{
@@ -36,5 +38,12 @@ class Main extends PluginBase{
     }
     public function getPlayerByString($string){
         return Server::getInstance()->getPlayer($string);
+    }
+    public function config(){
+        if (!file_exists($this->getDataFolder()."config.yml")) {
+            $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+            $cfg->setAll(["xp_on_kill" => 25, "xp_on_death" => 20]);
+            $cfg->save();
+        }
     }
 }
