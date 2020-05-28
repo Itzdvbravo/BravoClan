@@ -5,6 +5,7 @@ namespace Itzdvbravo\BravoClan;
 use Itzdvbravo\BravoClan\Main;
 
 use pocketmine\Player;
+use pocketmine\utils\Config;
 
 class Database{
     private $plugin;
@@ -14,18 +15,20 @@ class Database{
     }
     public function setClan($clan, $leader){
         $leader = strtolower($leader);
+        $cfg = new Config($this->plugin->getDataFolder()."config.yml");
         $dtb = Main::$db->prepare("INSERT OR REPLACE INTO clans (clan, leader, level, xp, nex, kills, deaths, tm, maxtm) VALUES (:clan, :leader, :level, :xp, :nex, :kills, :deaths, :tm, :maxtm)");
         $dtb->bindValue(":clan", $clan, SQLITE3_TEXT);
         $dtb->bindValue(":leader", $leader, SQLITE3_TEXT);
         $dtb->bindvalue(":level", 1, SQLITE3_INTEGER);
         $dtb->bindvalue(":xp", 0, SQLITE3_INTEGER);
-        $dtb->bindvalue(":nex", 100, SQLITE3_INTEGER);
+        $dtb->bindvalue(":nex", $cfg->get("lvl_2_xp"), SQLITE3_INTEGER);
         $dtb->bindvalue(":kills", 0, SQLITE3_INTEGER);
         $dtb->bindvalue(":deaths", 0, SQLITE3_INTEGER);
         $dtb->bindvalue(":tm", 0, SQLITE3_INTEGER);
-        $dtb->bindValue(":maxtm", 2, SQLITE3_INTEGER);
+        $dtb->bindValue(":maxtm", $cfg->get("starting_member_limit"), SQLITE3_INTEGER);
         $dtb->execute();
         $dtb->close();
+        $cfg->save();
         $this->setMember($clan, $leader);
     }
     public function getClan($clan){

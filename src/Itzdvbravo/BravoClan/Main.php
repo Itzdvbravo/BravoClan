@@ -41,9 +41,7 @@ class Main extends PluginBase{
     }
     public function config(){
         if (!file_exists($this->getDataFolder()."config.yml")) {
-            $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-            $cfg->setAll(["xp_on_kill" => 25, "xp_on_death" => 20]);
-            $cfg->save();
+            $this->saveResource("config.yml");
         }
     }
     public function scorehudAddon($member)
