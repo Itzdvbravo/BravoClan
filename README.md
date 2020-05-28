@@ -13,6 +13,9 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - [x] Get clan info, clan member info.
 - [x] Clan chat
 
+###Latest Version Changes  
+- More configurable through config.yml.
+
 ### Clan System
 
 - **Level System**  
@@ -86,6 +89,6 @@ Get top 10 clans
 **Usage** - /clan top
 
 ### Upcoming Projects
-- [ ] More configurable
+- [x] More configurable
 - [ ] Purechat compatible
 - [ ] More efficient member limit system 
