@@ -91,5 +91,5 @@ Get top 10 clans
 
 ### Upcoming Projects
 - [x] More configurable
-- [ ] Purechat compatible
+- [ ] Purechat compatible (Requested)
 - [ ] More efficient member limit system 
