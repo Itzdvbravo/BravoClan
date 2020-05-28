@@ -86,8 +86,8 @@ Accept an invitation from a clan.
 ***NOTE:*** Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.  
 
 - **Top**<br>   
-Get top 10 clans
-**Usage** - /clan top
+Get top 10 clans  
+**Usage** - /clan top  
 
 ### Upcoming Projects
 - [x] More configurable
