@@ -22,31 +22,21 @@ class EventListener implements Listener{
     }
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
-        if (array_key_exists(strtolower($player->getName()), Main::$clan->chat)){
-            $msg = $event->getMessage();
-            $event->setCancelled(true);
-            $clan = Main::$file->getClan(Main::$clan->chat[strtolower($player->getName())]);
-            if (!Main::$file->isInClan(strtolower($player->getName()))){
-                unset(Main::$clan->chat[strtolower($player->getName())]);
-                return;
-            } else{
-                $minfo = Main::$file->getMember(strtolower($player->getName()));
-                if ($clan['clan'] !== $minfo['clan']){
-                    unset(Main::$clan->chat[strtolower($player->getName())]);
-                    return;
-                }
-            }
-            $members = Main::$file->clanMembers($clan['clan']);
-            foreach ($members as $member){
-                if ($this->plugin->isOnline($member)){
-                    $getm = Server::getInstance()->getPlayer($member);
-                    if ($clan['leader'] === strtolower($player->getName())){
-                        $rank = "leader";
-                    } else {
-                        $rank = "member";
-                    }
-                    $getm->sendMessage("§o§e[{$clan['clan']}] §a[$rank] §5{$player->getName()} §a-> §e{$msg}");
-                }
+        if (!array_key_exists(strtolower($player->getName()), Main::$clan->chat)) return;
+        $msg = $event->getMessage();
+        $event->setCancelled(true);
+        $clan = Main::$file->getClan(Main::$clan->chat[strtolower($player->getName())]);
+        $minfo = Main::$file->getMember(strtolower($player->getName()));
+        if (!Main::$file->isInClan(strtolower($player->getName())) or $clan['clan'] !== $minfo['clan']){
+            unset(Main::$clan->chat[strtolower($player->getName())]);
+            return;
+        }
+        $members = Main::$file->clanMembers($clan['clan']);
+        foreach ($members as $member) {
+            if ($this->plugin->isOnline($member)) {
+                $getm = Server::getInstance()->getPlayer($member);
+                $rank = $clan['leader'] === strtolower($player->getName()) ? "leader" : "member";
+                $getm->sendMessage("§o§e[{$clan['clan']}] §a[$rank] §5{$player->getName()} §a-> §e{$msg}");
             }
         }
     }
