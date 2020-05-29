@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace Itzdvbravo\BravoClan;
 
@@ -22,22 +22,26 @@ class Clan{
         $nex = $clan['nex'];
         $xp = $clan['xp'];
         $kills = $clan['kills'];
+        $maxtm = $clan["maxtm"];
+
         $cfg = new Config($this->plugin->getDataFolder()."config.yml", Config::YAML);
         $plusxp = $cfg->get("xp_onkill");
-        if ($xp + $plusxp > $nex){
-            $newlvl = $lvl + 1;
-            $newxp = $xp + $plusxp - $nex;
-            $nnex = $nex + $cfg->get("xp_perlvl");
-            Main::$file->setLevel($name, $newlvl);
-            Main::$file->setXp($name, $newxp);
-            Main::$file->setNex($name, $nnex);
-        } else{
-            $newxp = $xp + $plusxp;
-            Main::$file->setXp($name, $newxp);
-        }
+
         Main::$file->setKills($name, $kills + 1);
-        $mkill = Main::$file->getMember(strtolower($player->getName()))["kills"] + 1;
-        Main::$file->setMemberKills(strtolower($player->getName()), $mkill);
+        Main::$file->setMemberKills(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["kills"] + 1);
+        
+        if ($xp + $plusxp > $nex){
+            $lvl += 1;
+            $xp += $plusxp - $nex;
+            $nex += $cfg->get("xp_perlvl");
+            $maxtm = $lvl % 5 === 0 ? $maxtm + 2 : $maxtm;
+        } else {
+            $xp += $plusxp;
+        }
+        Main::$file->setLevel($name, $lvl);
+        Main::$file->setXp($name, $xp);
+        Main::$file->setNex($name, $nex);
+        Main::$file->setMaxTm($name, $maxtm);
         $cfg->save();
     }
     public function onClanMemberDeath($clan, Player $player){
@@ -46,35 +50,28 @@ class Clan{
         $nex = $clan['nex'];
         $xp = $clan['xp'];
         $deaths = $clan['deaths'];
-        $mxtm = $clan['maxtm'];
+
         $cfg = new Config($this->plugin->getDataFolder()."config.yml", Config::YAML);
         $minusxp = $cfg->get("xp_ondeath");
-        Main::$file->setDeaths($name, $deaths + 1);
-        $mdeaths = Main::$file->getMember(strtolower($player->getName()))["deaths"] + 1;
-        Main::$file->setMemberDeaths(strtolower($player->getName()), $mdeaths);
-        if ($xp === 0 && $lvl === 1){
-            return;
-        } elseif($xp - $minusxp < 0) {
-            if ($lvl === 1){
-                $newxp = 0;
-                Main::$file->setXp($name, $newxp);
-            } else {
-                $newlvl = $lvl + 1;
-                $nnex = $nex - $cfg->get("xp_perlvl");
-                $newxp = $nnex + $xp - $minusxp;
 
-                Main::$file->setLevel($name, $newlvl);
-                Main::$file->setXp($name, $newxp);
-                Main::$file->setNex($name, $nnex);
-                if ($newlvl % 5 === 0) {
-                    $newmt = $mxtm + 2;
-                    Main::$file->setMaxTm($name, $newmt);
-                }
+        Main::$file->setDeaths($name, $deaths + 1);
+        Main::$file->setMemberDeaths(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["deaths"] + 1);
+
+        if ($xp === 0 && $lvl === 1) return;
+        if ($xp - $minusxp < 0){
+            if ($lvl === 1) {
+                $xp = 0;
+            } else {
+                $lvl -= 1;
+                $nex -= $cfg->get("xp_perlvl");
+                $xp += $nex - $minusxp;
             }
         } else {
-            $newxp = $xp - $minusxp;
-            Main::$file->setXp($name, $newxp);
+            $xp -= $minusxp;
         }
+        Main::$file->setLevel($name, $lvl);
+        Main::$file->setXp($name, $xp);
+        Main::$file->setNex($name, $nex);
         $cfg->save();
     }
 }
