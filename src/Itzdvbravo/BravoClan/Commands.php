@@ -5,6 +5,7 @@ namespace Itzdvbravo\BravoClan;
 use Itzdvbravo\BravoClan\Main;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\Player;
 
 class Commands{
     private $plugin;
@@ -13,32 +14,22 @@ class Commands{
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
     }
+
+    /**
+     * @param CommandSender $player
+     * @param Command $cmd
+     * @param string $label
+     * @param array $args
+     * @return bool
+     */
     public function command(CommandSender $player, Command $cmd, string $label, array $args) {
         if (count($args) === 0){
-            $player->sendMessage("§e/clan create - create clan");
-            $player->sendMessage("§e/clan invite - invite players to clan");
-            $player->sendMessage("§e/clan accept - accept clan invitation");
-            $player->sendMessage("§e/clan kick - kick players from clan");
-            $player->sendMessage("§e/clan leave - leave your clan");
-            $player->sendMessage("§e/clan delete - delete your clan");
-            $player->sendMessage("§e/clan info - get clan info of your or other clans");
-            $player->sendMessage("§e/clan members - get members info from your clan/other's clan");
-            $player->sendMessage("§e/clan chat - join clan chat");
-            $player->sendMessage("§e/clan top - get top 10 clans");
+            $this->help($player);
         } else {
             if ($cmd->getName() === "clan"){
                 switch ($args[0]){
                     default:
-                        $player->sendMessage("§e/clan create - create clan");
-                        $player->sendMessage("§e/clan invite - invite players to clan");
-                        $player->sendMessage("§e/clan accept - accept clan invitation");
-                        $player->sendMessage("§e/clan kick - kick players from clan");
-                        $player->sendMessage("§e/clan leave - leave your clan");
-                        $player->sendMessage("§e/clan delete - delete your clan");
-                        $player->sendMessage("§e/clan info - get clan info of your or other clans");
-                        $player->sendMessage("§e/clan members - get members info from your clan/other's clan");
-                        $player->sendMessage("§e/clan chat - join clan chat");
-                        $player->sendMessage("§e/clan top - get top 10 clans");
+                        $this->help($player);
                         break;
                     case "create":
                         if (Main::$file->isInClan(strtolower($player->getName()))){
@@ -172,34 +163,26 @@ class Commands{
                         if (empty($args[1])) {
                             if (!Main::$file->isInClan(strtolower($player->getName()))) {
                                 $player->sendMessage("§eYou aren't in a clan, you can provide a clan to get info of");
+                                return true;
                             } else {
                                 $clan = Main::$file->getClan(Main::$clan->player[strtolower($player->getName())]);
-                                $m = Main::$file->clanMembers($clan['clan']);
-                                foreach ($m as $person){
-                                    if ($this->plugin->isOnline($person)){
-                                        $info = Main::$file->getMember($person);
-                                        $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§aON§e]");
-                                    } else {
-                                        $info = Main::$file->getMember($person);
-                                        $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§4OFF§e]");
-                                    }
-                                }
                             }
                         } else {
                             if (!Main::$file->clanExist($args[1])){
                                 $player->sendMessage("§eClan not found");
+                                return true;
                             } else {
                                 $clan = Main::$file->getClan($args[1]);
-                                $m = Main::$file->clanMembers($clan['clan']);
-                                foreach ($m as $person){
-                                    if ($this->plugin->isOnline($person)){
-                                        $info = Main::$file->getMember($person);
-                                        $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§aON§e]");
-                                    } else {
-                                        $info = Main::$file->getMember($person);
-                                        $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§4OFF§e]");
-                                    }
-                                }
+                            }
+                        }
+                        $m = Main::$file->clanMembers($clan['clan']);
+                        foreach ($m as $person){
+                            if ($this->plugin->isOnline($person)){
+                                $info = Main::$file->getMember($person);
+                                $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§aON§e]");
+                            } else {
+                                $info = Main::$file->getMember($person);
+                                $player->sendMessage("§e{$person} [{$info['kills']}/{$info['deaths']}] [§4OFF§e]");
                             }
                         }
                         break;
@@ -218,40 +201,30 @@ class Commands{
                         if (empty($args[1])){
                             if (!Main::$file->isInClan(strtolower($player->getName()))) {
                                 $player->sendMessage("§eYou aren't in a clan, you can provide a clan to get info of");
+                                return true;
                             } else {
                                 $clan = Main::$file->getClan(Main::$clan->player[strtolower($player->getName())]);
-                                $m = Main::$file->getMembersByClan($clan['clan']);
-                                $player->sendMessage("§e<<<<<<<<<<<<<<<{$clan['clan']}>>>>>>>>>>>>>>");
-                                $player->sendMessage("§eLeader: {$clan['leader']}");
-                                $player->sendMessage("§eMembers: {$clan['tm']}/{$clan['maxtm']}");
-                                if ($m !== Null) {
-                                    $members = implode(', ', $m);
-                                    $player->sendMessage("§b{$members}");
-                                }
-                                $player->sendMessage("§eLevel: {$clan['lvl']}");
-                                $player->sendMessage("§eXP: {$clan['xp']}/{$clan['nex']}");
-                                $player->sendMessage("§eKDR: {$clan['kills']}/{$clan['deaths']}");
-                                $player->sendMessage("--------------------------------------------");
                             }
                         } else {
                             if (!Main::$file->clanExist($args[1])){
                                 $player->sendMessage("§eClan not found");
+                                return true;
                             } else {
                                 $clan = Main::$file->getClan($args[1]);
-                                $m = Main::$file->getMembersByClan($clan['clan']);
-                                $player->sendMessage("§e<<<<<<<<<<<<<<<{$clan['clan']}>>>>>>>>>>>>>>");
-                                $player->sendMessage("§eLeader: {$clan['leader']}");
-                                $player->sendMessage("§eMembers: {$clan['tm']}/{$clan['maxtm']}");
-                                if ($m !== Null) {
-                                    $members = implode(', ', $m);
-                                    $player->sendMessage("§b{$members}");
-                                }
-                                $player->sendMessage("§eLevel: {$clan['lvl']}");
-                                $player->sendMessage("§eXP: {$clan['xp']}/{$clan['nex']}");
-                                $player->sendMessage("§eKDR: {$clan['kills']}/{$clan['deaths']}");
-                                $player->sendMessage("§e--------------------------------------------");
                             }
                         }
+                        $m = Main::$file->getMembersByClan($clan['clan']);
+                        $player->sendMessage("§e<<<<<<<<<<<<<<<{$clan['clan']}>>>>>>>>>>>>>>");
+                        $player->sendMessage("§eLeader: {$clan['leader']}");
+                        $player->sendMessage("§eMembers: {$clan['tm']}/{$clan['maxtm']}");
+                        if ($m !== Null) {
+                            $members = implode(', ', $m);
+                            $player->sendMessage("§b{$members}");
+                        }
+                        $player->sendMessage("§eLevel: {$clan['lvl']}");
+                        $player->sendMessage("§eXP: {$clan['xp']}/{$clan['nex']}");
+                        $player->sendMessage("§eKDR: {$clan['kills']}/{$clan['deaths']}");
+                        $player->sendMessage("§e--------------------------------------------");
                         break;
                     case "chat":
                         if (!Main::$file->isInClan(strtolower($player->getName()))){
@@ -281,5 +254,22 @@ class Commands{
                 }
             }
         }
+        return true;
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function help(Player $player){
+        $player->sendMessage("§e/clan create - create clan");
+        $player->sendMessage("§e/clan invite - invite players to clan");
+        $player->sendMessage("§e/clan accept - accept clan invitation");
+        $player->sendMessage("§e/clan kick - kick players from clan");
+        $player->sendMessage("§e/clan leave - leave your clan");
+        $player->sendMessage("§e/clan delete - delete your clan");
+        $player->sendMessage("§e/clan info - get clan info of your or other clans");
+        $player->sendMessage("§e/clan members - get members info from your clan/other's clan");
+        $player->sendMessage("§e/clan chat - join clan chat");
+        $player->sendMessage("§e/clan top - get top 10 clans");
     }
 }
