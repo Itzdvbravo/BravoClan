@@ -47,47 +47,47 @@ Get your or others clan info, don't provide a clan name if you want to get info 
 
 - **Create**<br>  
 Create a clan if you aren't already in a clan.  
-**Usage** - /clan create <clan name>.  
-***NOTE:*** Clan name can only contain letters  
+Usage - `/clan create <clan name>`  
+**Note - Clan name can only contain letters**    
 
 - **Invite**<br>  
 Invite members to your clan  
-**Usage** - /clan invite <member>.  
-***NOTE:*** Only for clan leaders, won't be able to invite if the clan member limit has reached, will send a message to the player you're inviting, lasts for 30 second  
+Usage - `/clan invite <member>`  
+**Note - Only for clan leaders, won't be able to invite if the clan member limit has reached, will send a message to the player you're inviting, lasts for 30 second**  
 
 - **Chat**<br>  
 Join your clan chat.  
-**Usage** - /clan chat  
-***NOTE:*** Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan  
+Usage - `/clan chat`  
+**Note - Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan**  
 
 - **Members**<br>  
 Get member info of your or others clan.  
-**Usage** - /clan members <clan>  
-***NOTE:*** Won't work if player doesn't provide a clan and isn't in a clan, will show if they're online/offline thier kill/deaths in the clan.  
+Usage - `/clan members <clan>`  
+**Note - Won't work if player doesn't provide a clan and isn't in a clan, will show if they're online/offline thier kill/deaths in the clan.**  
 
 - **Kick**<br>  
 Kick a member from a clan.  
-**Usage** - /clan kick  
-***NOTE:*** Only for clan leaders  
+Usage - `/clan kick`  
+**Note - Only for clan leaders**  
 
 - **Delete**<br>  
 Delete your clan.  
-**Usage** - /clan delete  
-***NOTE:*** Only for clan leaders  
+Usage - `/clan delete`  
+**Note - Only for clan leaders**  
 
 - **Leave**<br>  
 Leave your clan.  
-**Usage** - /clan leave  
-***NOTE:*** Only works for members, works if you're in a clan.  
+Usage - `/clan leave`  
+**Note - Only works for members, works if you're in a clan.**  
 
 - **Accept**<br>  
 Accept an invitation from a clan.  
-**Usage** - /clan accept  
-***NOTE:*** Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.  
+Usage - `/clan accept`  
+**Note - Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.**  
 
 - **Top**<br>   
 Get top 10 clans  
-**Usage** - /clan top  
+Usage - `/clan top`  
 
 ### Upcoming Projects
 - [x] More configurable
