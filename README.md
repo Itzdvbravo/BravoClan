@@ -42,8 +42,8 @@ There are only two ranks in the clan, leader and members.
 
 - **Info**<br>  
 Get your or others clan info, don't provide a clan name if you want to get info about your clan.  
-**Usuage** - /clan info <clan>.  
-***NOTE:*** Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.  
+Usage - `/clan info <clan>`  
+**Note - Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.**  
 
 - **Create**<br>  
 Create a clan if you aren't already in a clan.  
