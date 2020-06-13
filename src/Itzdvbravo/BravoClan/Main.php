@@ -76,7 +76,7 @@ class Main extends PluginBase{
     public function cfgVersion(){
         $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
         var_dump($cfg->get("version"));
-        if ($cfg->get("version") < 0.2){
+        if ($cfg->get("version") < 0.6){
             $this->getLogger()->info("Config file version isn't the working version for this plugin version");
         }
     }
