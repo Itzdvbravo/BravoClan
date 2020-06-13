@@ -1,10 +1,22 @@
+#DO NOT TOUCH
+version: 1
+#DO NOT TOUCH
+
+#Add the worlds you want the clan plugin to work [Pvp wise], leave it as it is if you want to be in every world
+pvp-world:
+  - "DEFAULT"
+
 #lvl_2_xp means the xp needed to level 2 i.e the xp needed to levelup for a newly made clan
 lvl_2_xp: 100
+
 #xp_perlvl means the xp added every level up i.e the more xp they need after they level up
 xp_perlvl: 250
+
 #xp_onkill means the xp added on kill
 xp_onkill: 25
+
 #xp_ondeath means the xp reduced on death
 xp_ondeath: 20
+
 #The limit of members of the newly made clan before leveling up even once
 starting_member_limit: 2

@@ -13,6 +13,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\Player;
 use pocketmine\Server;
+use pocketmine\utils\Config;
 
 class EventListener implements Listener{
     private $plugin;
@@ -20,6 +21,7 @@ class EventListener implements Listener{
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
     }
+
     public function onChat(PlayerChatEvent $event){
         $player = $event->getPlayer();
         if (!array_key_exists(strtolower($player->getName()), Main::$clan->chat)) return;
@@ -40,11 +42,15 @@ class EventListener implements Listener{
             }
         }
     }
+
     public function onDamage(EntityDamageEvent $event){
         if ($event instanceof EntityDamageByEntityEvent){
             $player = $event->getEntity();
             $hitter = $event->getDamager();
             if ($player instanceof Player && $hitter instanceof Player){
+                if (!$this->plugin->inPvpWorld($player)){
+                    return;
+                }
                 if (Main::$file->isInClan(strtolower($player->getname())) && Main::$file->isInClan(strtolower($hitter->getname()))) {
                     if (Main::$clan->player[strtolower($player->getName())] === Main::$clan->player[strtolower($hitter->getName())]) {
                         $event->setCancelled(true);
@@ -60,15 +66,20 @@ class EventListener implements Listener{
             Main::$clan->player[strtolower($player->getName())] = $clan["clan"];
         }
     }
+
     public function onLeave(PlayerQuitEvent $event){
         $player = $event->getPlayer();
         if (Main::$file->isInClan(strtolower($player->getname()))) {
             unset(Main::$clan->player[strtolower($player->getName())]);
         }
     }
+
     public function onKill(PlayerDeathEvent $event){
         $player = $event->getPlayer();
         if ($player instanceof Player) {
+            if (!$this->plugin->inPvpWorld($player)){
+                return;
+            }
             $cause = $player->getLastDamageCause();
             if ($cause instanceof EntityDamageByEntityEvent) {
                 $killer = $cause->getDamager();

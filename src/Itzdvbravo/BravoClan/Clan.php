@@ -16,6 +16,11 @@ class Clan{
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
     }
+
+    /**
+     *@param $clan
+     *@param Player $player
+     */
     public function onClanMemberKill($clan, Player $player){
         $name = $clan['clan'];
         $lvl = $clan['lvl'];
@@ -29,7 +34,7 @@ class Clan{
 
         Main::$file->setKills($name, $kills + 1);
         Main::$file->setMemberKills(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["kills"] + 1);
-        
+
         if ($xp + $plusxp > $nex){
             $lvl += 1;
             $xp += $plusxp - $nex;
@@ -44,6 +49,11 @@ class Clan{
         Main::$file->setMaxTm($name, $maxtm);
         $cfg->save();
     }
+
+    /**
+     *@param $clan
+     *@param Player $player
+     */
     public function onClanMemberDeath($clan, Player $player){
         $name = $clan['clan'];
         $lvl = $clan['lvl'];

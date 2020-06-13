@@ -13,6 +13,11 @@ class Database{
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
     }
+
+    /**
+     * @param $clan
+     * @param $leader
+     */
     public function setClan($clan, $leader){
         $leader = strtolower($leader);
         $cfg = new Config($this->plugin->getDataFolder()."config.yml");
@@ -31,24 +36,23 @@ class Database{
         $cfg->save();
         $this->setMember($clan, $leader);
     }
+
+    /**
+     * @param $clan
+     * @return array
+     */
     public function getClan($clan){
         $dtb = Main::$db->prepare("SELECT * FROM clans WHERE clan =:clan;");
         $dtb->bindValue(":clan", $clan);
         $end = $dtb->execute();
         $array = $end->fetchArray(SQLITE3_ASSOC);
-        $clan = $array["clan"];
-        $leader = $array["leader"];
-        $lvl = $array["level"];
-        $xp = $array["xp"];
-        $nex = $array["nex"];
-        $kills = $array["kills"];
-        $deaths = $array["deaths"];
-        $tm = $array["tm"];
-        $maxtm = $array["maxtm"];
         $dtb->close();
-        return array("clan" => $clan, "leader" => $leader, "lvl" => $lvl, "xp" => $xp,
-            "nex" => $nex, "kills" => $kills, "deaths" => $deaths, "tm" => $tm, "maxtm" => $maxtm);
+        return $array;
     }
+
+    /**
+     * @param $clan
+     */
     public function removeClan($clan){
         $dtb = Main::$db->prepare("DELETE FROM clans WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -59,6 +63,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $member
+     */
     public function setMember($clan, $member){
         strtolower($member);
         $dtb = Main::$db->prepare("INSERT OR REPLACE INTO members (clan, member, kills, deaths) VALUES (:clan, :member, :kills, :deaths)");
@@ -69,18 +78,24 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $member
+     * @return array
+     */
     public function getMember($member){
         strtolower($member);
         $dtb = Main::$db->prepare("SELECT * FROM members WHERE member =:member;");
         $dtb->bindValue(":member", $member);
         $end = $dtb->execute();
         $array = $end->fetchArray(SQLITE3_ASSOC);
-        $clan = $array["clan"];
-        $kills = $array["kills"];
-        $deaths = $array["deaths"];
         $dtb->close();
-        return array("clan" => $clan, "kills" => $kills, "deaths" => $deaths);
+        return $array;
     }
+
+    /**
+     * @param $member
+     */
     public function removeMember($member){
         strtolower($member);
         $dtb = Main::$db->prepare("DELETE FROM members WHERE member=:member;");
@@ -88,6 +103,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $level
+     */
     public function setLevel($clan, $level){
         $dtb = Main::$db->prepare("UPDATE clans SET level=:level WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -95,6 +115,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $xp
+     */
     public function setXp($clan, $xp){
         $dtb = Main::$db->prepare("UPDATE clans SET xp=:xp WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -102,6 +127,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $nex
+     */
     public function setNex($clan, $nex){
         $dtb = Main::$db->prepare("UPDATE clans SET nex=:nex WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -109,6 +139,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $kills
+     */
     public function setKills($clan, $kills){
         $dtb = Main::$db->prepare("UPDATE clans SET kills=:kills WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -116,6 +151,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $deaths
+     */
     public function setDeaths($clan, $deaths){
         $dtb = Main::$db->prepare("UPDATE clans SET deaths=:deaths WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -123,6 +163,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $tm
+     */
     public function setTm($clan, $tm){
         $dtb = Main::$db->prepare("UPDATE clans SET tm=:tm WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -130,6 +175,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @param $maxtm
+     */
     public function setMaxTm($clan, $maxtm){
         $dtb = Main::$db->prepare("UPDATE clans SET maxtm=:maxtm WHERE clan=:clan;");
         $dtb->bindValue(":clan", $clan);
@@ -137,6 +187,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $member
+     * @param $kills
+     */
     public function setMemberKills($member, $kills){
         $member = strtolower($member);
         $dtb = Main::$db->prepare("UPDATE members SET kills=:kills WHERE member=:member;");
@@ -145,6 +200,11 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $member
+     * @param $deaths
+     */
     public function setMemberDeaths($member, $deaths){
         $member = strtolower($member);
         $dtb = Main::$db->prepare("UPDATE members SET deaths=:deaths WHERE member=:member;");
@@ -153,19 +213,27 @@ class Database{
         $dtb->execute();
         $dtb->close();
     }
+
+    /**
+     * @param $clan
+     * @return null
+     */
     public function getMembersByClan($clan){
         $tw = Main::$db->query("SELECT * FROM members WHERE clan ='$clan';");
-        $counter = 0;
         while ($resultAr = $tw->fetchArray(SQLITE3_ASSOC)) {
             if ($this->getClan($clan)["tm"] === 0){
                 return Null;
             } else {
-                $member = $resultAr['member'];
-                $data[] = "$member";
+                $data[] = $resultAr['member'];
             }
         }
         return $data;
     }
+
+    /**
+     * @param $clan
+     * @return bool
+     */
     public function clanExist($clan):bool {
         $result = Main::$db->prepare("SELECT clan FROM clans WHERE clan =:clan;");
         $result->bindValue(":clan", $clan, SQLITE3_TEXT);
@@ -178,6 +246,11 @@ class Database{
             return true;
         }
     }
+
+    /**
+     * @param $clan
+     * @return mixed
+     */
     public function clanMembers($clan){
         $tw = Main::$db->query("SELECT * FROM members WHERE clan ='$clan';");
         while ($resultAr = $tw->fetchArray(SQLITE3_ASSOC)) {
@@ -185,6 +258,11 @@ class Database{
         }
         return $data;
     }
+
+    /**
+     * @param $player
+     * @return bool
+     */
     public function isInClan($player):bool {
         $result = Main::$db->prepare("SELECT member FROM members WHERE member =:member;");
         $result->bindValue(":member", $player, SQLITE3_TEXT);

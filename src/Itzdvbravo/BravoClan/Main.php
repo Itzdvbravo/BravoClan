@@ -2,8 +2,7 @@
 
 namespace Itzdvbravo\BravoClan;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
+use pocketmine\Player;
 use pocketmine\Plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\Config;
@@ -21,13 +20,16 @@ class Main extends PluginBase{
         self::$file = new Database($this);
         self::$clan = new Clan($this);
         self::$cmd = new Commands($this);
+        $this->getServer()->getCommandMap()->register("clan", self::$cmd);
         $this->config();
+        $this->cfgVersion();
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
     }
-    public function onCommand(CommandSender $player, Command $cmd, string $label, array $args): bool{
-        Main::$cmd->command($player, $cmd, $label, $args);
-        return true;
-    }
+
+    /**
+     * @param $string
+     * @return bool
+     */
     public function isOnline($string):bool {
         $player = Server::getInstance()->getPlayer($string);
         if ($player === Null){
@@ -36,14 +38,25 @@ class Main extends PluginBase{
             return true;
         }
     }
+
+    /**
+     * @param $string
+     * @return \pocketmine\Player|null
+     */
     public function getPlayerByString($string){
         return Server::getInstance()->getPlayer($string);
     }
+
     public function config(){
         if (!file_exists($this->getDataFolder()."config.yml")) {
             $this->saveResource("config.yml");
         }
     }
+
+    /**
+     * @param $member
+     * @return string
+     */
     public function scorehudAddon($member)
     {
         if (self::$file->isInClan($member)) {
@@ -56,7 +69,39 @@ class Main extends PluginBase{
             $dtb->close();
             return "$clan";
         } else {
-            return "No Clan";
+            return "Clanless";
+        }
+    }
+
+    public function cfgVersion(){
+        $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
+        var_dump($cfg->get("version"));
+        if ($cfg->get("version") < 0.2){
+            $this->getLogger()->info("Config file version isn't the working version for this plugin version");
+        }
+    }
+
+    /**
+     * @param Player $player
+     * @return bool
+     */
+    public function inPvpWorld(Player $player):bool {
+        $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
+        $array = $cfg->get("pvp-world");
+        if (empty($array)){
+            return true;
+        }
+        foreach ($array as $allowed){
+            if ($allowed === "DEFAULT"){
+                return true;
+            } else {
+                $list[] = $allowed;
+            }
+        }
+        if (in_array($player->getLevel()->getName(), $list)){
+            return true;
+        } else {
+            return false;
         }
     }
 }
