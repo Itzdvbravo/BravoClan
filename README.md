@@ -5,6 +5,7 @@
 This is a simple clan plugin, it was made because there is very few (or no) working clan plugin without claims, just simple grouping system with levels.
 
 ### Features
+- [x] Pvp-wise clan plugin working in worlds configurable
 - [x] [Scorehud compatible](https://github.com/JackMD/ScoreHud-Addons)
 - [x] Clan system, obviously.
 - [x] Earn XP on kill, Lose XP on death
