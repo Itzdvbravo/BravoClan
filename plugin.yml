@@ -9,4 +9,4 @@ softdepend: [ScoreHud]
 
 commands:
   clan:
-    description: Clan commands.
+    description: Clan commands
