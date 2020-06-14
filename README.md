@@ -1,10 +1,11 @@
-# BravoClan<img src="https://raw.githubusercontent.com/Itzdvbravo/05b09668a38155ad2eeeb9633c35625459dfc241/1588520980287.jpg" height="64" width="64" align="left"></img>
+# BravoClan<img src="https://raw.githubusercontent.com/Itzdvbravo/BravoClan/master/icon.png" height="64" width="64" align="left"></img>
 
 [![Poggit](https://poggit.pmmp.io/shield.state/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
 
 This is a simple clan plugin, it was made because there is very few (or no) working clan plugin without claims, just simple grouping system with levels.
 
 ### Features
+- [x] Pvp-wise the clan plugin will work only in the worlds given in config.yml
 - [x] [Scorehud compatible](https://github.com/JackMD/ScoreHud-Addons)
 - [x] Clan system, obviously.
 - [x] Earn XP on kill, Lose XP on death
