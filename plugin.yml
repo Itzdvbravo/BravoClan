@@ -7,6 +7,7 @@ api: 3.12.0
 author: Itzdvbravo
 
 softdepend: [ScoreHud]
+virions: [FormAPI]
 
 commands:
   clan:
