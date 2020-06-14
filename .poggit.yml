@@ -5,7 +5,7 @@ branches:
 projects:
   BravoClan:
     path: ""
-    icon: "icon.png"
+    icon: "new.png"
     #Credit to DevRqzor for the phpstan thing
     lint:
       phpstan: false
