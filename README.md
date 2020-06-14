@@ -1,4 +1,4 @@
-# BravoClan<img src="https://raw.githubusercontent.com/Itzdvbravo/BravoClan/master/icon.png" height="64" width="64" align="left"></img>
+# BravoClan<img src="https://raw.githubusercontent.com/Itzdvbravo/BravoClan/master/new.png" height="64" width="64" align="left"></img>
 
 [![Poggit](https://poggit.pmmp.io/shield.state/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
 
