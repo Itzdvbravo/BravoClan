@@ -57,7 +57,6 @@ class Commands extends Command implements PluginIdentifiableCommand {
             case "invite":
                 $this->commands["invite"]->executeSub($player, $args, "invite");
                 break;
-            case "decline":
             case "accept":
                 $this->commands["accept"]->executeSub($player, $args, "accept");
                 break;
