@@ -45,18 +45,24 @@ There are only two ranks in the clan, leader and members.
 - [x] /clan accept
 - [x] /clan top
 
+| Command | Description | Leader Only | Aliases |
+| --- | --- | --- | --- |
+| `/clan create` | Create a clan if you aren't already in a clan | No | `None` |
+| `/clan invite` | Invite members to your clan | Yes | `None` |
+| `/clan accept` | Accept an invitation from a clan | No | `None` |
+| `/clan chat` | Join your clan chat | No | `None` |
+
 - **Info**<br>  
 Get your or others clan info, don't provide a clan name if you want to get info about your clan.  
 Usage - `/clan info <clan>`  
 **Note - Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.**  
 
-- **Create**<br>  
-Create a clan if you aren't already in a clan.  
+- **Create**<br>   
 Usage - `/clan create <clan name>`  
 **Note - Clan name can only contain letters**    
 
 - **Invite**<br>  
-Invite members to your clan  
+
 Usage - `/clan invite <member>`  
 **Note - Only for clan leaders, won't be able to invite if the clan member limit has reached, will send a message to the player you're inviting, lasts for 30 second**  
 
@@ -86,7 +92,7 @@ Usage - `/clan leave`
 **Note - Only works for members, works if you're in a clan.**  
 
 - **Accept**<br>  
-Accept an invitation from a clan.  
+ 
 Usage - `/clan accept`  
 **Note - Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.**  
 
