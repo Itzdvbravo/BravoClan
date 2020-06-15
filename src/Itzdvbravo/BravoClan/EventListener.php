@@ -23,6 +23,7 @@ class EventListener implements Listener{
     }
 
     public function onChat(PlayerChatEvent $event){
+        #Adding all the checks just incase the player gets kicked/leaves the clan.
         $player = $event->getPlayer();
         if (!array_key_exists(strtolower($player->getName()), Main::$clan->chat)) return;
         $msg = $event->getMessage();

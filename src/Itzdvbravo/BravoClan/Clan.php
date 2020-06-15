@@ -5,7 +5,6 @@ namespace Itzdvbravo\BravoClan;
 use Itzdvbravo\BravoClan\Main;
 use Itzdvbravo\BravoClan\Database;
 use pocketmine\Player;
-use pocketmine\utils\Config;
 
 class Clan{
     private $plugin;
@@ -18,10 +17,10 @@ class Clan{
     }
 
     /**
-     *@param $clan
+     *@param array $clan
      *@param Player $player
      */
-    public function onClanMemberKill($clan, Player $player){
+    public function onClanMemberKill(array $clan, Player $player){
         $name = $clan['clan'];
         $lvl = $clan['lvl'];
         $nex = $clan['nex'];
@@ -29,10 +28,11 @@ class Clan{
         $kills = $clan['kills'];
         $maxtm = $clan["maxtm"];
 
-        $cfg = new Config($this->plugin->getDataFolder()."config.yml", Config::YAML);
+        $cfg = $this->plugin->getConfig();
         $plusxp = $cfg->get("xp_onkill");
 
         Main::$file->setKills($name, $kills + 1);
+        //Main::$file->getMember(strtolower($player->getName())) returns the member stats [Clan name, kills etc]
         Main::$file->setMemberKills(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["kills"] + 1);
 
         if ($xp + $plusxp > $nex){
@@ -47,24 +47,24 @@ class Clan{
         Main::$file->setXp($name, $xp);
         Main::$file->setNex($name, $nex);
         Main::$file->setMaxTm($name, $maxtm);
-        $cfg->save();
     }
 
     /**
-     *@param $clan
-     *@param Player $player
+     * @param array $clan
+     * @param Player $player
      */
-    public function onClanMemberDeath($clan, Player $player){
+    public function onClanMemberDeath(array $clan, Player $player){
         $name = $clan['clan'];
         $lvl = $clan['lvl'];
         $nex = $clan['nex'];
         $xp = $clan['xp'];
         $deaths = $clan['deaths'];
 
-        $cfg = new Config($this->plugin->getDataFolder()."config.yml", Config::YAML);
+        $cfg = $this->plugin->getConfig();
         $minusxp = $cfg->get("xp_ondeath");
 
         Main::$file->setDeaths($name, $deaths + 1);
+        //Main::$file->getMember(strtolower($player->getName())) returns the member stats [Clan name, kills etc]
         Main::$file->setMemberDeaths(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["deaths"] + 1);
 
         if ($xp === 0 && $lvl === 1) return;
@@ -82,6 +82,5 @@ class Clan{
         Main::$file->setLevel($name, $lvl);
         Main::$file->setXp($name, $xp);
         Main::$file->setNex($name, $nex);
-        $cfg->save();
     }
 }

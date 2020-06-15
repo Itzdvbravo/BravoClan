@@ -2,16 +2,31 @@
 
 namespace Itzdvbravo\BravoClan;
 
+use Itzdvbravo\BravoClan\Commands\Commands;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase{
     public static $db;
+    /** @var Database */
     public static $file;
+    /** @var Clan */
     public static $clan;
+    /** @var Commands */
     public static $cmd;
+    /** @var Main*/
+    public static $instance = null;
+    public $messages;
+
+    public function onLoad(){
+        self::$instance = $this;
+        $this->saveDefaultConfig();
+        $this->saveResource("messages.yml");
+        $this->messages = new Config($this->getDataFolder()."messages.yml");
+    }
 
     public function onEnable(){
         self::$db = new \SQLite3($this->getDataFolder()."clans.db");
@@ -21,8 +36,6 @@ class Main extends PluginBase{
         self::$clan = new Clan($this);
         self::$cmd = new Commands($this);
         $this->getServer()->getCommandMap()->register("BravoClan", self::$cmd);
-        $this->config();
-        $this->cfgVersion();
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
     }
 
@@ -40,28 +53,14 @@ class Main extends PluginBase{
     }
 
     /**
-     * @param $string
-     * @return Player|null
-     */
-    public function getPlayerByString($string){
-        return Server::getInstance()->getPlayer($string);
-    }
-
-    public function config(){
-        if (!file_exists($this->getDataFolder()."config.yml")) {
-            $this->saveResource("config.yml");
-        }
-    }
-
-    /**
-     * @param $member
+     * @param string $member
      * @return string
      */
-    public function scorehudAddon($member)
+    public function scorehudAddon(string $member)
     {
         if (self::$file->isInClan($member)) {
             strtolower($member);
-            $dtb = Main::$db->prepare("SELECT * FROM members WHERE member =:member;");
+            $dtb = Main::$db->prepare("SELECT clan FROM members WHERE member =:member;");
             $dtb->bindValue(":member", $member);
             $end = $dtb->execute();
             $array = $end->fetchArray(SQLITE3_ASSOC);
@@ -74,12 +73,21 @@ class Main extends PluginBase{
     }
 
     public function cfgVersion(){
-        $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        if ($cfg->get("version") < 0.6){
-            $cfg->set("version", 0.6);
+        if ($this->getConfig()->get("version") < 0.6){
+            $this->getConfig()->set("version", 0.6);
             $w = ["DEFAULT"];
-            $cfg->set("pvp-world", $w);
+            $this->getConfig()->set("pvp-world", $w);
         }
+    }
+
+    public function addColour(string $string){
+        /*
+         * Some people lengthen the code here so a quick tip
+         * STOP USING "$string = str_replace("&4", TextFormat::RED, $string);", stuff like this
+         * I have seen this in some plugins so STOP.
+         */
+        $string = str_replace("&", TextFormat::ESCAPE, $string);
+        return $string;
     }
 
     /**
@@ -87,22 +95,24 @@ class Main extends PluginBase{
      * @return bool
      */
     public function inPvpWorld(Player $player):bool {
-        $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        $array = $cfg->get("pvp-world");
+        $array = $this->getConfig()->get("pvp-world");
         if (empty($array)){
             return true;
         }
-        foreach ($array as $allowed){
-            if ($allowed === "DEFAULT"){
-                return true;
-            } else {
-                $list[] = $allowed;
-            }
+        if (in_array("DEFAULT", $array)){
+            return true;
         }
-        if (in_array($player->getLevel()->getName(), $list)){
+        if (in_array($player->getLevel()->getName(), $array)){
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return Main|null
+     */
+    public static function getInstance(){
+        return self::$instance;
     }
 }
