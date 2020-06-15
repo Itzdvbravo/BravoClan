@@ -16,9 +16,11 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - [x] Get clan info, clan member info.
 - [x] Clan chat
 
-###Latest Version Changes  
+### Latest Version Changes  
 - More configurable through config.yml.  
 - Adds 2 members after every 5 level.  
+- You can customise messages in messages.yml ('&' works too for colours)  
+- Now you can set which worlds the clan plugin will work (pvp-wise) in config.yml  
 
 ### Clan System
 
@@ -94,5 +96,5 @@ Usage - `/clan top`
 
 ### Upcoming Projects
 - [x] More configurable
-- [ ] Purechat compatible (Requested)
-- [ ] More efficient member limit system 
+- [x] More efficient member limit system 
+- [x] Uh idk XD
