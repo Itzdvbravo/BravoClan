@@ -81,11 +81,6 @@ class Main extends PluginBase{
     }
 
     public function addColour(string $string){
-        /*
-         * Some people lengthen the code here so a quick tip
-         * STOP USING "$string = str_replace("&4", TextFormat::RED, $string);", stuff like this
-         * I have seen this in some plugins so STOP.
-         */
         $string = str_replace("&", TextFormat::ESCAPE, $string);
         return $string;
     }
