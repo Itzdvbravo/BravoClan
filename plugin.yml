@@ -11,4 +11,4 @@ virions: [FormAPI]
 
 commands:
   clan:
-    description: Clan commands.
+    description: Clan commands
