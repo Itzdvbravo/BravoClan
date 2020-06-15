@@ -3,7 +3,7 @@
 namespace Itzdvbravo\BravoClan;
 
 use pocketmine\Player;
-use pocketmine\Plugin\PluginBase;
+use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
@@ -20,7 +20,7 @@ class Main extends PluginBase{
         self::$file = new Database($this);
         self::$clan = new Clan($this);
         self::$cmd = new Commands($this);
-        $this->getServer()->getCommandMap()->register("clan", self::$cmd);
+        $this->getServer()->getCommandMap()->register("BravoClan", self::$cmd);
         $this->config();
         $this->cfgVersion();
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
@@ -41,7 +41,7 @@ class Main extends PluginBase{
 
     /**
      * @param $string
-     * @return \pocketmine\Player|null
+     * @return Player|null
      */
     public function getPlayerByString($string){
         return Server::getInstance()->getPlayer($string);
@@ -75,9 +75,10 @@ class Main extends PluginBase{
 
     public function cfgVersion(){
         $cfg = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        var_dump($cfg->get("version"));
         if ($cfg->get("version") < 0.6){
-            $this->getLogger()->info("Config file version isn't the working version for this plugin version");
+            $cfg->set("version", 0.6);
+            $w = ["DEFAULT"];
+            $cfg->set("pvp-world", $w);
         }
     }
 
