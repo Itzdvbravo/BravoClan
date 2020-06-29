@@ -34,71 +34,18 @@ If you die you lose xp.
 There are only two ranks in the clan, leader and members.  
 
 ### Commands
-- [x] /clan info
-- [x] /clan create
-- [x] /clan invite
-- [x] /clan chat
-- [x] /clan members
-- [x] /clan kick
-- [x] /clan delete
-- [x] /clan leave
-- [x] /clan accept
-- [x] /clan top
-
 | Command | Description | Leader Only | Aliases |
 | --- | --- | --- | --- |
 | `/clan create` | Create a clan if you aren't already in a clan | No | `None` |
 | `/clan invite` | Invite members to your clan | Yes | `None` |
 | `/clan accept` | Accept an invitation from a clan | No | `None` |
 | `/clan chat` | Join your clan chat | No | `None` |
-
-- **Info**<br>  
-Get your or others clan info, don't provide a clan name if you want to get info about your clan.  
-Usage - `/clan info <clan>`  
-**Note - Will send an error message to the player using if he ain't in a clan and doesn't provide any clan name.**  
-
-- **Create**<br>   
-Usage - `/clan create <clan name>`  
-**Note - Clan name can only contain letters**    
-
-- **Invite**<br>  
-
-Usage - `/clan invite <member>`  
-**Note - Only for clan leaders, won't be able to invite if the clan member limit has reached, will send a message to the player you're inviting, lasts for 30 second**  
-
-- **Chat**<br>  
-Join your clan chat.  
-Usage - `/clan chat`  
-**Note - Works only if you're in a clan, every online member of your clan can see it even if they ain't in a clan**  
-
-- **Members**<br>  
-Get member info of your or others clan.  
-Usage - `/clan members <clan>`  
-**Note - Won't work if player doesn't provide a clan and isn't in a clan, will show if they're online/offline thier kill/deaths in the clan.**  
-
-- **Kick**<br>  
-Kick a member from a clan.  
-Usage - `/clan kick`  
-**Note - Only for clan leaders**  
-
-- **Delete**<br>  
-Delete your clan.  
-Usage - `/clan delete`  
-**Note - Only for clan leaders**  
-
-- **Leave**<br>  
-Leave your clan.  
-Usage - `/clan leave`  
-**Note - Only works for members, works if you're in a clan.**  
-
-- **Accept**<br>  
- 
-Usage - `/clan accept`  
-**Note - Only works if you're not in a clan, if you don't do it in under the 30 second if invitation time it will give expire error.**  
-
-- **Top**<br>   
-Get top 10 clans  
-Usage - `/clan top`  
+| `/clan info` | Get your or others clan info | No | `None` |
+| `/clan members` | Get member info of your or others clan. | No | `None` |
+| `/clan kick` | Invite members to your clan | Yes | `None` |
+| `/clan delete` | Delete your clan | Yes | `None` |
+| `/clan leave` | Leave your clan | Member Only | `None` |
+| `/clan top` | Get top 10 clans | No | `None` |
 
 ### Upcoming Projects
 - [x] More configurable
