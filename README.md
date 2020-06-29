@@ -17,10 +17,7 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - [x] Clan chat
 
 ### Latest Version Changes  
-- More configurable through config.yml.  
-- Adds 2 members after every 5 level.  
-- You can customise messages in messages.yml ('&' works too for colours)  
-- Now you can set which worlds the clan plugin will work (pvp-wise) in config.yml  
+- Updated to pmmp 1.14.0
 
 ### Clan System
 
