@@ -14,6 +14,11 @@ class Kick implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "kick";
+    }
+
     /**
      * @inheritDoc
      */

@@ -14,6 +14,11 @@ class Members implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "members";
+    }
+
     /**
      * @inheritDoc
      */

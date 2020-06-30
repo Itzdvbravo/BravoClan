@@ -14,6 +14,11 @@ class Delete implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "delete";
+    }
+
     /**
      * @inheritDoc
      */

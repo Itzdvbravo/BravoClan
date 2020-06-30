@@ -14,6 +14,11 @@ class Top implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "top";
+    }
+
     /**
      * @inheritDoc
      */
