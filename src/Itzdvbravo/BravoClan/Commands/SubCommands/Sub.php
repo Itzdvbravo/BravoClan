@@ -10,8 +10,6 @@ use pocketmine\command\CommandSender;
  */
 interface Sub{
 
-    public function getName(): string;
-
     /**
      *
      * @api

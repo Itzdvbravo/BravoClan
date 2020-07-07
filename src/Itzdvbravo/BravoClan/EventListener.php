@@ -16,11 +16,6 @@ use pocketmine\Server;
 use pocketmine\utils\Config;
 
 class EventListener implements Listener{
-    private $plugin;
-
-    public function __construct(Main $plugin){
-        $this->plugin = $plugin;
-    }
 
     public function onChat(PlayerChatEvent $event){
         #Adding all the checks just incase the player gets kicked/leaves the clan.
@@ -36,7 +31,7 @@ class EventListener implements Listener{
         }
         $members = Main::$file->clanMembers($clan['clan']);
         foreach ($members as $member) {
-            if ($this->plugin->isOnline($member)) {
+            if (Main::getInstance()->isOnline($member)) {
                 $getm = Server::getInstance()->getPlayer($member);
                 $rank = $clan['leader'] === strtolower($player->getName()) ? "leader" : "member";
                 $getm->sendMessage("§o§e[{$clan['clan']}] §a[$rank] §5{$player->getName()} §a-> §e{$msg}");
@@ -49,7 +44,7 @@ class EventListener implements Listener{
             $player = $event->getEntity();
             $hitter = $event->getDamager();
             if ($player instanceof Player && $hitter instanceof Player){
-                if (!$this->plugin->inPvpWorld($player)){
+                if (!Main::getInstance()->inPvpWorld($player)){
                     return;
                 }
                 if (Main::$file->isInClan(strtolower($player->getname())) && Main::$file->isInClan(strtolower($hitter->getname()))) {
@@ -78,7 +73,7 @@ class EventListener implements Listener{
     public function onKill(PlayerDeathEvent $event){
         $player = $event->getPlayer();
         if ($player instanceof Player) {
-            if (!$this->plugin->inPvpWorld($player)){
+            if (!Main::getInstance()->inPvpWorld($player)){
                 return;
             }
             $cause = $player->getLastDamageCause();

@@ -1,10 +1,13 @@
 #DO NOT TOUCH
-version: 0.6
+version: 1.0
 #DO NOT TOUCH
 
 #Add the worlds you want the clan plugin to work [Pvp wise], leave it as it is if you want to be in every world
 pvp-world:
   - "DEFAULT"
+
+#The amount of members added after every 5 level
+member-additon: 2
 
 #lvl_2_xp means the xp needed to level 2 i.e the xp needed to levelup for a newly made clan
 lvl_2_xp: 100

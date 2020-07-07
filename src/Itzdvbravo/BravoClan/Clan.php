@@ -7,14 +7,8 @@ use Itzdvbravo\BravoClan\Database;
 use pocketmine\Player;
 
 class Clan{
-    private $plugin;
     public $player = [];
     public $chat = [];
-
-
-    public function __construct(Main $plugin){
-        $this->plugin = $plugin;
-    }
 
     /**
      *@param array $clan
@@ -28,18 +22,17 @@ class Clan{
         $kills = $clan['kills'];
         $maxtm = $clan["maxtm"];
 
-        $cfg = $this->plugin->getConfig();
+        $cfg = Main::getInstance()->getConfig();
         $plusxp = $cfg->get("xp_onkill");
 
         Main::$file->setKills($name, $kills + 1);
-        //Main::$file->getMember(strtolower($player->getName())) returns the member stats [Clan name, kills etc]
         Main::$file->setMemberKills(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["kills"] + 1);
 
         if ($xp + $plusxp > $nex){
             $lvl += 1;
             $xp += $plusxp - $nex;
             $nex += $cfg->get("xp_perlvl");
-            $maxtm = $lvl % 5 === 0 ? $maxtm + 2 : $maxtm;
+            $maxtm = $lvl % 5 === 0 ? $maxtm + $cfg->get("member-addition") : $maxtm;
         } else {
             $xp += $plusxp;
         }
@@ -60,11 +53,10 @@ class Clan{
         $xp = $clan['xp'];
         $deaths = $clan['deaths'];
 
-        $cfg = $this->plugin->getConfig();
+        $cfg = Main::getInstance()->getConfig();
         $minusxp = $cfg->get("xp_ondeath");
 
         Main::$file->setDeaths($name, $deaths + 1);
-        //Main::$file->getMember(strtolower($player->getName())) returns the member stats [Clan name, kills etc]
         Main::$file->setMemberDeaths(strtolower($player->getName()), Main::$file->getMember(strtolower($player->getName()))["deaths"] + 1);
 
         if ($xp === 0 && $lvl === 1) return;

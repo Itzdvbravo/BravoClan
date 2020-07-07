@@ -3,11 +3,13 @@
 namespace Itzdvbravo\BravoClan;
 
 use Itzdvbravo\BravoClan\Commands\Commands;
+use pocketmine\block\Fallable;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use SQLite3;
 
 class Main extends PluginBase{
     public static $db;
@@ -17,8 +19,9 @@ class Main extends PluginBase{
     public static $clan;
     /** @var Commands */
     public static $cmd;
-    /** @var Main*/
+    /** @var Main|null*/
     public static $instance = null;
+    /** @var Config */
     public $messages;
 
     public function onLoad(){
@@ -29,54 +32,44 @@ class Main extends PluginBase{
     }
 
     public function onEnable(){
-        self::$db = new \SQLite3($this->getDataFolder()."clans.db");
+        self::$db = new SQLite3($this->getDataFolder()."clans.db");
         self::$db->exec("CREATE TABLE IF NOT EXISTS clans(clan TEXT PRIMARY KEY COLLATE NOCASE, leader TEXT COLLATE NOCASE, level INT, xp INT, nex INT, kills INT, deaths INT, tm INT, maxtm INT)");
         self::$db->exec("CREATE TABLE IF NOT EXISTS members(clan TEXT COLLATE NOCASE, member PRIMARY KEY COLLATE NOCASE, kills INT, deaths INT)");
-        self::$file = new Database($this);
-        self::$clan = new Clan($this);
+        self::$file = new Database();
+        self::$clan = new Clan();
         self::$cmd = new Commands($this);
         $this->getServer()->getCommandMap()->register("BravoClan", self::$cmd);
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
+        $this->cfgVersion();
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @return bool
      */
-    public function isOnline($string):bool {
+    public function isOnline(string $string):bool {
         $player = Server::getInstance()->getPlayer($string);
-        if ($player === Null){
-            return false;
-        } else {
-            return true;
-        }
+        return isset($player);
     }
 
     /**
      * @param string $member
      * @return string
      */
-    public function scorehudAddon(string $member)
-    {
+    public function scorehudAddon(string $member){
         if (self::$file->isInClan($member)) {
             strtolower($member);
-            $dtb = Main::$db->prepare("SELECT clan FROM members WHERE member =:member;");
-            $dtb->bindValue(":member", $member);
-            $end = $dtb->execute();
-            $array = $end->fetchArray(SQLITE3_ASSOC);
-            $clan = $array["clan"];
-            $dtb->close();
+            $clan = Main::$file->getMember($member)["clan"];
             return "$clan";
         } else {
             return "Clanless";
         }
     }
 
-    public function cfgVersion(){
-        if ($this->getConfig()->get("version") < 0.6){
-            $this->getConfig()->set("version", 0.6);
-            $w = ["DEFAULT"];
-            $this->getConfig()->set("pvp-world", $w);
+    private function cfgVersion(){
+        if ($this->getConfig()->get("version") < 1.0){
+            Server::getInstance()->getLogger()->critical("The config version isn't compatible");
+            Server::getInstance()->getPluginManager()->disablePlugin($this);
         }
     }
 
@@ -91,7 +84,7 @@ class Main extends PluginBase{
      */
     public function inPvpWorld(Player $player):bool {
         $array = $this->getConfig()->get("pvp-world");
-        if (empty($array)){
+        if (!isset($array)){
             return true;
         }
         if (in_array("DEFAULT", $array)){

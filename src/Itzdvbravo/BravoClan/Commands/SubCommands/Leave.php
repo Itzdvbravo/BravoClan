@@ -14,8 +14,7 @@ class Leave implements Sub{
         $this->plugin = $plugin;
     }
 
-    public function getName(): string
-    {
+    public function getName(): string{
         return "leave";
     }
 

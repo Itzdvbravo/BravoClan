@@ -8,11 +8,6 @@ use pocketmine\Player;
 use pocketmine\utils\Config;
 
 class Database{
-    private $plugin;
-
-    public function __construct(Main $plugin){
-        $this->plugin = $plugin;
-    }
 
     /**
      * @param string $clan
@@ -20,7 +15,7 @@ class Database{
      */
     public function setClan(string $clan, string $leader){
         $leader = strtolower($leader);
-        $cfg = new Config($this->plugin->getDataFolder()."config.yml");
+        $cfg = new Config(Main::getInstance()->getDataFolder()."config.yml");
         $dtb = Main::$db->prepare("INSERT OR REPLACE INTO clans (clan, leader, level, xp, nex, kills, deaths, tm, maxtm) VALUES (:clan, :leader, :level, :xp, :nex, :kills, :deaths, :tm, :maxtm)");
         $dtb->bindValue(":clan", $clan, SQLITE3_TEXT);
         $dtb->bindValue(":leader", $leader, SQLITE3_TEXT);

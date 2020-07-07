@@ -25,15 +25,12 @@ use pocketmine\utils\TextFormat;
 
 class Commands extends Command implements PluginIdentifiableCommand {
 
-    /** @var Main  */
-    private $plugin;
     /** @var Sub[] */
     public $commands = [];
     public $invite = [];
 
     public function __construct(Main $plugin){
         parent::__construct("clan", "Clan Commands");
-        $this->plugin = $plugin;
         $this->registerAllSubCommands();
     }
 
@@ -44,8 +41,6 @@ class Commands extends Command implements PluginIdentifiableCommand {
      * @return bool
      */
     public function execute(CommandSender $player, string $label, array $args):bool {
-        #For whoever is reviewing this plugin (poggit mods), using commands through console won't break anything
-        #Checks if the name (player name) is in a clan, console can't create clans or accept invites.
         if (!isset($args[0])){
             $player->sendMessage(TextFormat::RED . "/clan help");
             return true;
@@ -57,26 +52,24 @@ class Commands extends Command implements PluginIdentifiableCommand {
         } else {
             $player->sendMessage(TextFormat::RED . "Unknown clan command do /clan help");
         }
-
-
         return true;
     }
 
-    public function registerAllSubCommands(){
-        $this->registerSubCommand(new Create($this->plugin));
-        $this->registerSubCommand(new Invite($this->plugin));
-        $this->registerSubCommand(new Accept($this->plugin));
-        $this->registerSubCommand(new Kick($this->plugin));
-        $this->registerSubCommand(new Leave($this->plugin));
-        $this->registerSubCommand(new Members($this->plugin));
-        $this->registerSubCommand(new Delete($this->plugin));
-        $this->registerSubCommand(new Info($this->plugin));
-        $this->registerSubCommand(new Chat($this->plugin));
-        $this->registerSubCommand(new Top($this->plugin));
-        $this->registerSubCommand(new Help($this->plugin));
+    private function registerAllSubCommands(){
+        $this->registerSubCommand(new Create(Main::getInstance()));
+        $this->registerSubCommand(new Invite(Main::getInstance()));
+        $this->registerSubCommand(new Accept(Main::getInstance()));
+        $this->registerSubCommand(new Kick(Main::getInstance()));
+        $this->registerSubCommand(new Leave(Main::getInstance()));
+        $this->registerSubCommand(new Members(Main::getInstance()));
+        $this->registerSubCommand(new Delete(Main::getInstance()));
+        $this->registerSubCommand(new Info(Main::getInstance()));
+        $this->registerSubCommand(new Chat(Main::getInstance()));
+        $this->registerSubCommand(new Top(Main::getInstance()));
+        $this->registerSubCommand(new Help(Main::getInstance()));
     }
 
-    public function registerSubCommand(Sub $sub): void
+    private function registerSubCommand(Sub $sub): void
     {
         $this->commands[$sub->getName()] = $sub;
     }
@@ -85,6 +78,6 @@ class Commands extends Command implements PluginIdentifiableCommand {
      * @return Plugin
      */
     public function getPlugin(): Plugin{
-        return $this->plugin;
+        return Main::getInstance();
     }
 }
