@@ -24,25 +24,25 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - **Level System**  
 The clan level system is quite basic but interestic and kindof different than others _(Currently the amount of xp needed to level up isn't configurable however The amount of xp you lose, you gain can be configured in config.yml)_.  
 The first level is 100 xp (Leader can invite 2 members only), after the clan has more than 100 xp, they will level up and reach level 2.
-Now, After every 5 levelup it will open 2 more member space. After you level up, the xp needed to levelup + 250 xp will be needed for next level up i.e, to get level 3 you need to get 350xp (100 + 250).  
+Now, After every 5 levelup it will open X amount of member space. After you level up, the xp needed to levelup + 250 xp will be needed for next level up i.e, to get level 3 you need to get 350xp (100 + 250).  
 If you die you lose xp.
 
 - **Rank System**  
 There are only two ranks in the clan, leader and members.  
 
 ### Commands
-| Command | Description | Leader Only | Aliases |
-| --- | --- | --- | --- |
-| `/clan create` | Create a clan if you aren't already in a clan | No | `None` |
-| `/clan invite` | Invite members to your clan | Yes | `None` |
-| `/clan accept` | Accept an invitation from a clan | No | `None` |
-| `/clan chat` | Join your clan chat | No | `None` |
-| `/clan info` | Get your or others clan info | No | `None` |
-| `/clan members` | Get member info of your or others clan. | No | `None` |
-| `/clan kick` | Invite members to your clan | Yes | `None` |
-| `/clan delete` | Delete your clan | Yes | `None` |
-| `/clan leave` | Leave your clan | Member Only | `None` |
-| `/clan top` | Get top 10 clans | No | `None` |
+| Command | Description | Leader Only |
+| --- | --- | --- |
+| `/clan create` | Create a clan if you aren't already in a clan | `No` |
+| `/clan invite` | Invite members to your clan | `Yes` | 
+| `/clan accept` | Accept an invitation from a clan |` No` |
+| `/clan chat` | Join your clan chat | `No` |
+| `/clan info` | Get your or others clan info | `No` |
+| `/clan members` | Get member info of your or others clan. | `No` |
+| `/clan kick` | Invite members to your clan | `Yes` |
+| `/clan delete` | Delete your clan | `Yes` |
+| `/clan leave` | Leave your clan | `Member Only` |
+| `/clan top` | Get top 10 clans | `No` |
 
 ### Upcoming Projects
 - [x] More configurable
