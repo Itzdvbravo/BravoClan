@@ -14,6 +14,11 @@ class Accept implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "accept";
+    }
+
     /**
      * @inheritDoc
      */

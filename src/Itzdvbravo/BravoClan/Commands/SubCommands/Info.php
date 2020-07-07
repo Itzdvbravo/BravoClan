@@ -13,6 +13,11 @@ class Info implements Sub{
         $this->plugin = $plugin;
     }
 
+    public function getName(): string
+    {
+        return "info";
+    }
+
     /**
      * @inheritDoc
      */
