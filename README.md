@@ -3,6 +3,7 @@
 [![Poggit](https://poggit.pmmp.io/shield.state/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
 [![Poggit](https://poggit.pmmp.io/shield.dl.total/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
 [![Poggit](https://poggit.pmmp.io/shield.dl/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
+[![Poggit](https://poggit.pmmp.io/shield.api/BravoClan)](https://poggit.pmmp.io/p/BravoClan)
 
 This is a simple clan plugin, it was made because there is very few (or no) working clan plugin without claims, just simple grouping system with levels.
 
