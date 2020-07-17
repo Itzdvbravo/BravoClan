@@ -40,7 +40,7 @@ class Info implements Sub{
         $player->sendMessage("§e<<<<<<<<<<<<<<<{$clan['clan']}>>>>>>>>>>>>>>");
         $player->sendMessage("§eLeader: {$clan['leader']}");
         $player->sendMessage("§eMembers: {$clan['tm']}/{$clan['maxtm']}");
-        $player->sendMessage("§eLevel: {$clan['lvl']}");
+        $player->sendMessage("§eLevel: {$clan['level']}");
         $player->sendMessage("§eXP: {$clan['xp']}/{$clan['nex']}");
         $player->sendMessage("§eKDR: {$clan['kills']}/{$clan['deaths']}");
         $player->sendMessage("§e--------------------------------------------");
