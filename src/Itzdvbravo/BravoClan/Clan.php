@@ -16,7 +16,7 @@ class Clan{
      */
     public function onClanMemberKill(array $clan, Player $player){
         $name = $clan['clan'];
-        $lvl = $clan['lvl'];
+        $lvl = $clan['level'];
         $nex = $clan['nex'];
         $xp = $clan['xp'];
         $kills = $clan['kills'];
@@ -48,7 +48,7 @@ class Clan{
      */
     public function onClanMemberDeath(array $clan, Player $player){
         $name = $clan['clan'];
-        $lvl = $clan['lvl'];
+        $lvl = $clan['level'];
         $nex = $clan['nex'];
         $xp = $clan['xp'];
         $deaths = $clan['deaths'];
