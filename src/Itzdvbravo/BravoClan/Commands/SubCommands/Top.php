@@ -29,7 +29,7 @@ class Top implements Sub{
         while ($resultAr = $top->fetchArray(SQLITE3_ASSOC)) {
             $counter += 1;
             $clan = Main::$file->getClan($resultAr['clan']);
-            $player->sendMessage("§e{$counter} -> {$clan['clan']} with {$clan['lvl']} Level §6{$clan['xp']}/{$clan['nex']}");
+            $player->sendMessage("§e{$counter} -> {$clan['clan']} with {$clan['level']} Level §6{$clan['xp']}/{$clan['nex']}");
         }
     }
 }
