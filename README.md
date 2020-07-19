@@ -18,7 +18,7 @@ This is a simple clan plugin, it was made because there is very few (or no) work
 - [x] Clan chat
 
 ### Latest Version Changes  
-- Updated to pmmp 1.14.0
+- Updated to pmmp 3.14.2
 
 ### Clan System
 
