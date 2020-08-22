@@ -80,11 +80,11 @@ class EventListener implements Listener{
             if ($cause instanceof EntityDamageByEntityEvent) {
                 $killer = $cause->getDamager();
                 if ($killer instanceof Player) {
-                    if (Main::$file->isInClan(strtolower($player->getname()))) {
+                    if (Main::$file->isInClan(strtolower($killer->getname()))) {
                         $clan = Main::$file->getClan(Main::$clan->player[strtolower($killer->getName())]);
                         Main::$clan->onClanMemberKill($clan, $killer);
                     }
-                    if (Main::$file->isInClan(strtolower($killer->getname()))) {
+                    if (Main::$file->isInClan(strtolower($player->getname()))) {
                         $clan = Main::$file->getClan(Main::$clan->player[strtolower($player->getName())]);
                         Main::$clan->onClanMemberDeath($clan, $player);
                     }
