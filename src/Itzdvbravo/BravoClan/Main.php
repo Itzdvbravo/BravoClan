@@ -54,21 +54,42 @@ class Main extends PluginBase{
 
     /**
      * @param string $member
+     * @param string $type
      * @return string
      */
-    public function scorehudAddon(string $member){
+    public function scorehudAddon(string $member, string $type = ""):string{
+        if ($type === ""){
+            Server::getInstance()->getLogger()->critical("The scorehud addon of BravoClan isn't upto date");
+            return "Error";
+        }
         if (self::$file->isInClan($member)) {
             strtolower($member);
-            $clan = Main::$file->getMember($member)["clan"];
-            return "$clan";
+            $info = Main::$file->getMember($member);
+            $clan = Main::$file->getClan($info["clan"]);
+            $array = [
+                "clan" => "{$clan["clan"]}",
+                "clan_xp" => "{$clan["xp"]}",
+                "clan_next_lvl" => "{$clan["nex"]}",
+                "clan_kills" => "{$clan["kills"]}",
+                "clan_deaths" => "{$clan["deaths"]}",
+                "clan_members" => "{$clan["tm"]}",
+                "clan_max_members" => "{$clan["maxtm"]}",
+                "member_kills" => "{$info["kills"]}",
+                "member_deaths" => "{$info["deaths"]}"
+            ];
+            return $array[$type];
         } else {
-            return "Clanless";
+            return $this->messages->get("scorehud_no_clan");
         }
     }
 
     private function cfgVersion(){
-        if ($this->getConfig()->get("version") < 1.0){
-            Server::getInstance()->getLogger()->critical("The config version isn't compatible");
+        $ver = $this->getConfig()->get("version");
+        if ($ver < 1.1 && $ver === 1.0){
+            Server::getInstance()->getLogger()->info("The config version isn't compatible, Updating It....");
+            $this->messages->set("scorehud_no_clan", "Clanless");
+        } elseif ($ver < 1.0){
+            Server::getInstance()->getLogger()->critical("The config version isn't compatible, Delete config from \"plugin_data/BravoClan\"");
             Server::getInstance()->getPluginManager()->disablePlugin($this);
         }
     }
