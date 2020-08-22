@@ -1,6 +1,7 @@
 not-in-clan: "&2You aren't in a clan"
 already-in-clan: "&4You are already in clan"
 not-leader: "&4You aren't the clan leader"
+scorehud_no_clan: "Clanless"
 
 no-invites: "&4None has invited you"
 invitation-expired: "&4Invitation have been expired"
