@@ -40,7 +40,7 @@ There are only two ranks in the clan, leader and members.
 | `/clan chat` | Join your clan chat | `No` |
 | `/clan info` | Get your or others clan info | `No` |
 | `/clan members` | Get member info of your or others clan. | `No` |
-| `/clan kick` | Invite members to your clan | `Yes` |
+| `/clan kick` | Kick members from your clan | `Yes` |
 | `/clan delete` | Delete your clan | `Yes` |
 | `/clan leave` | Leave your clan | `Member Only` |
 | `/clan top` | Get top 10 clans | `No` |
